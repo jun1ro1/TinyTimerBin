@@ -1,0 +1,27 @@
+digraph TimerBin {
+    idle               [label = "[idle]\ndisplay off\ndisplay timer stop\nsleep timer start",
+                        group = 1];
+    sleep              [label = "[sleep]\nsleep timer stop\nsleep",
+                        group = 1];
+
+    elapsed            [label = "[elapsed]\ndipplay elapsed time\ndisplay timer start",
+                        group = 2];
+    marked             [label = "[marked]\nmark"
+                        group = 2];
+
+    idle    -> idle    [label = "nothing"];
+    idle    -> sleep   [label = "timed out"];
+    idle    -> marked  [label = "up side down"];
+    idle    -> elapsed [label = "tilt"];
+
+    sleep   -> sleep   [label = "nothing / timed out"];
+    sleep   -> marked  [label = "up side down"];
+    sleep   -> elapsed [label = "tilt"];
+
+    elapsed -> elapsed [label = "nothing"];
+    elapsed -> idle    [label = "timed out"];
+    elapsed -> marked  [label = "up side down"];
+    elapsed -> elapsed [label = "tilt"];
+
+    marked  -> elapsed [label = "every event"];
+}
